@@ -20,6 +20,11 @@
 | `sprite-gen/` | https://github.com/aldegad/sprite-gen | main | `35a27e137bfd72440cc856b080913c66f69c772e` | 仓库根目录（SKILL.md 位于根） |
 | `webapp-testing/` | https://github.com/anthropics/skills | main | `2c5958ecac7cee2b583967a2c4981d0f4a75c579` | `skills/webapp-testing/` |
 | `web-design-guidelines/` | https://github.com/vercel-labs/agent-skills | main | `1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62` | `skills/web-design-guidelines/` |
+| `grill-me/` | https://github.com/mattpocock/skills | main | `4ae2317ddb22b046e26455e4f9c9b3aaaf62212d` | `skills/productivity/grill-me/` |
+| `grilling/` | https://github.com/mattpocock/skills | main | `4ae2317ddb22b046e26455e4f9c9b3aaaf62212d` | `skills/productivity/grilling/` |
+
+`grill-me` 是用户入口（`disable-model-invocation: true`，只做转发），实际逻辑在 `grilling`
+skill 中，因此两个目录必须同时存在。上游 MIT LICENSE 已随目录附上。
 
 为什么采用 vendoring（直接落到项目 skill 目录）：Trae CN 的项目级作用域是工作区
 `.trae/skills/` 与 `.trae/plugins/`；其中 `.trae/plugins/` 只接受插件包（`.trae-plugin/plugin.json`
