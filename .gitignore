@@ -1,0 +1,26 @@
+# ===== 依赖与本地环境（项目内安装，不入库）=====
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ===== Playwright 浏览器（项目内下载目录）=====
+.playwright-browsers/
+ms-playwright/
+
+# ===== 构建产物与缓存 =====
+dist/
+build/
+.cache/
+coverage/
+*.log
+logs/
+
+# ===== 临时目录 / 上游克隆暂存 =====
+.vendor-src/
+.tmp/
+
+# 注意：.trae/skills/ 下 vendored 的 skill 文件必须入库，不要在此忽略。

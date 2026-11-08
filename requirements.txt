@@ -1,0 +1,9 @@
+# 项目内 Python 依赖（安装到 .venv，不装全局）
+# 用法见 tools/setup-skills-env.ps1
+
+# webapp-testing：Playwright 验收
+playwright>=1.49
+
+# sprite-gen：与其 pyproject.toml 声明的运行时依赖一致
+pillow>=12.3.0,<13
+numpy>=2.2.6,<3
