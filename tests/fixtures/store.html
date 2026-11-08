@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <title>营业区场景 · 测试夹具</title>
+  <link rel="stylesheet" href="/game/css/base.css">
+  <link rel="stylesheet" href="/game/css/store.css">
+  <style>
+    body { margin: 0; background: #050d12; }
+    /* 与 game/index.html 的 .stage-frame 等效的 16:9 舞台 */
+    #scene-container { position: relative; width: min(1120px, 100vw); aspect-ratio: 16 / 9; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="scene-container"></div>
+  <script type="module">
+    import { mountStoreScene } from '/game/js/store-scene.js';
+
+    const state = {
+      enterWarehouseCalls: 0,
+      interactions: 0,
+      sounds: [],
+    };
+
+    const api = {
+      getHintLevel: () => 0,
+      registerInteraction() {
+        state.interactions += 1;
+      },
+      playSound(id) {
+        state.sounds.push(id);
+      },
+      exitHook: '存档承接：你从员工通道走进了营业区。',
+      enterWarehouse() {
+        state.enterWarehouseCalls += 1;
+      },
+    };
+
+    const container = document.querySelector('#scene-container');
+    let handle = null;
+
+    window.__storeHarness = {
+      state,
+      mount() {
+        handle = mountStoreScene(container, api);
+        return true;
+      },
+      destroy() {
+        if (!handle) return false;
+        handle.destroy();
+        handle = null;
+        return true;
+      },
+      remount() {
+        this.destroy();
+        container.replaceChildren();
+        this.mount();
+        return true;
+      },
+      updateContext(exitHook) {
+        if (handle) handle.updateContext({ exitHook });
+        return true;
+      },
+      isMounted() {
+        return handle !== null;
+      },
+    };
+
+    window.__storeHarness.mount();
+  </script>
+</body>
+</html>
