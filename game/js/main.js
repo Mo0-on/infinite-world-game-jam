@@ -7,6 +7,7 @@ import {
   completeWithHandoff,
   failWithHandoff,
   hasSanityRelic,
+  isAdoptableSave,
 } from './handoff.js';
 
 const sceneContainer = document.querySelector('#scene-container');
@@ -141,7 +142,9 @@ function abandonNightShift() {
 
 /** 采用新存档：首份到达才挂载玩法；此后仅更新引用并同步活动场景。 */
 function adoptSave(incoming, source) {
-  if (incoming && typeof incoming === 'object') {
+  // 首档守卫：尚未接档时拒绝无效负载，不置位、不挂载，保留"等待上一世界存档"等待态
+  if (!saveAdopted && !isAdoptableSave(incoming)) return;
+  if (isAdoptableSave(incoming)) {
     save = incoming;
   }
   if (!saveAdopted) {

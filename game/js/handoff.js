@@ -47,6 +47,17 @@ function resolveConfig(config) {
 }
 
 /**
+ * 首档有效性守卫：仅对象负载可被采用为存档。
+ * 与 iw-admin 分支的对象检查对称，防止无效 iw-save-ready detail
+ * 导致 save 仍为 null 却挂载玩法（承接旁白解引用 null 崩溃）。
+ * @param {*} incoming 事件 detail 或 WL.readSave() 返回值
+ * @returns {boolean}
+ */
+export function isAdoptableSave(incoming) {
+  return Boolean(incoming) && typeof incoming === 'object';
+}
+
+/**
  * 判断存档中是否携带理智遗物。
  * @param {{items?: Array<{id?: string}>}} save 官方协议存档
  * @param {string} relicId 遗物 ID；为 PENDING 常量时恒返回 false

@@ -132,6 +132,19 @@ test('test_sanity_relic', async () => {
   assert.equal(failFirstWl.calls.completeLevel.length, 0, '放弃之后的成功应被结束锁忽略');
 });
 
+test('首档有效性守卫：仅对象负载可被采用', async () => {
+  const handoff = await loadHandoff('adoptable-save');
+  // 有效负载：任意非 null 对象均可采用
+  assert.equal(handoff.isAdoptableSave(createSave()), true);
+  assert.equal(handoff.isAdoptableSave({}), true);
+  // 无效负载：null / undefined / 原始值一律拒绝（首档守卫据此保持等待态）
+  assert.equal(handoff.isAdoptableSave(null), false);
+  assert.equal(handoff.isAdoptableSave(undefined), false);
+  assert.equal(handoff.isAdoptableSave(0), false);
+  assert.equal(handoff.isAdoptableSave('v3'), false);
+  assert.equal(handoff.isAdoptableSave(false), false);
+});
+
 test('交接透传 save 引用且不篡改内容', async () => {
   const handoff = await loadHandoff('save-ref');
   const wl = createFakeWl();
