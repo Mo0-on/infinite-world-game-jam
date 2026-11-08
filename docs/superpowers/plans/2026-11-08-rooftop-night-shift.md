@@ -384,7 +384,7 @@ Expected: FAIL，交接模块尚未实现。
 
 - [ ] **Step 3: 实现存档采用与交接**
 
-监听 `iw-save-ready` 和 `iw-admin`，以事件中的新存档更新实际引用。iframe 中在首份 `iw-save-ready` 前只显示接档状态；独立打开时使用同步 `WL.readSave()`。场景挂载后的事件通过 `updateContext` 同步，保留当前进度。设置 `SANITY_RELIC_ID = "PENDING_UPSTREAM_SANITY_RELIC_ID"`；该值保持待替换时 `hasSanityRelic` 必须返回 false。大厅和模拟器的 `CONFIG.exitHook` 均填写 `EXIT_HOOK` 的同一文案，因为正式 iframe 会优先采用 CONFIG。`global-items.json` 改为 `{"schema":"iw-global-items-v1","items":[]}`。
+监听 `iw-save-ready` 和 `iw-admin`，以事件中的新存档更新实际引用。iframe 中在首份 `iw-save-ready` 前只显示接档状态；独立打开时使用同步 `WL.readSave()`。场景挂载后的事件通过 `updateContext` 同步，保留当前进度。设置 `SANITY_RELIC_ID = "PENDING_UPSTREAM_SANITY_RELIC_ID"`；该值保持待替换或为空时 `hasSanityRelic` 必须返回 false，游戏按无遗物路线正常运行并可直接发布，取得真实 ID 后替换一次即可启用捷径。大厅和模拟器的 `CONFIG.exitHook` 均填写 `EXIT_HOOK` 的同一文案，因为正式 iframe 会优先采用 CONFIG。`global-items.json` 改为 `{"schema":"iw-global-items-v1","items":[]}`。
 
 - [ ] **Step 4: 验证声明与回归测试**
 
@@ -417,9 +417,9 @@ Playwright 拦截 `shared/save-protocol.js` 注入可控 WL 测试桥，分别�
 Run: `$env:PLAYWRIGHT_BROWSERS_PATH="$PWD\.playwright-browsers"; .\.venv\Scripts\python.exe tests\e2e.py`  
 Expected: 全部 PASS；密码按各局扫码顺序计算，无默认满血覆盖，无重复交接。
 
-- [ ] **Step 3: 替换真实遗物 ID 并做发布阻断检查**
+- [ ] **Step 3: 遗物 ID 可选接入（不阻塞发布）**
 
-若仍出现 `PENDING_UPSTREAM_SANITY_RELIC_ID`，停止发布并向需求方取得上一关声明，不得猜 ID。替换后重跑有/无遗物全流程。
+理智遗物捷径为可选增益：取得上一关真实声明后替换一次 `SANITY_RELIC_ID` 并重跑有/无遗物全流程；未取得时保持待替换常量，游戏按无遗物路线完成验收与投稿。任何情况下不得猜 ID 或冒用示例“启程火炬”ID。
 
 - [ ] **Step 4: 双人各自实跑正常路线**
 
@@ -437,7 +437,7 @@ node participant-delivery-kit-v3.3.2/tools/check.mjs .\dist\tiantai-night-shift.
 
 `check-game.mjs` 递归扫描 `game/index.html`、`game/js/**` 和 `game/css/**` 的禁用 API、站内绝对资源及待替换 ID；不修改或误报官方 `game/shared/save-protocol.js`。浏览器测试监听 `dialog` 事件，出现任何原生弹窗即失败。
 
-Expected: 自有源码扫描无禁用 API/待替换 ID；官方 ZIP 检查确认包体、文件数、扩展名、入口、相对资源和空声明通过。不得把 ZIP 检查单独当作 JS 禁用 API 的证明。最后在真实大厅验证接档、结束语与成功/失败交档。
+Expected: 自有源码扫描无禁用 API；待替换 ID 仅作提醒、不阻断发布（未配置遗物即按无遗物路线验收）。官方 ZIP 检查确认包体、文件数、扩展名、入口、相对资源和空声明通过。不得把 ZIP 检查单独当作 JS 禁用 API 的证明。最后在真实大厅验证接档、结束语与成功/失败交档。
 
 - [ ] **Step 6: 提交整合 PR 并完成交叉审查**
 

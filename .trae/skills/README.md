@@ -22,6 +22,24 @@
 | `web-design-guidelines/` | https://github.com/vercel-labs/agent-skills | main | `1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62` | `skills/web-design-guidelines/` |
 | `grill-me/` | https://github.com/mattpocock/skills | main | `4ae2317ddb22b046e26455e4f9c9b3aaaf62212d` | `skills/productivity/grill-me/` |
 | `grilling/` | https://github.com/mattpocock/skills | main | `4ae2317ddb22b046e26455e4f9c9b3aaaf62212d` | `skills/productivity/grilling/` |
+| `frontend-design/` | https://github.com/anthropics/skills | main | `2c5958ecac7cee2b583967a2c4981d0f4a75c579` | `skills/frontend-design/` |
+| `userinterface-wiki/` | https://github.com/raphaelsalaja/userinterface-wiki | main | `256a954080c8bcf1b1ceb1e2a4079d1f24cf593a` | `skills/`（上游 skill 目录整体，152 条规则） |
+| `interaction-design/` | https://github.com/wshobson/agents | main | `4bde3168b43c0655c4d00ea2726e631719908a6d` | `plugins/ui-design/skills/interaction-design/` |
+| `better-ui/` | https://github.com/jakubkrehel/skills | main | `157da62016338e8693dcff93d47154a9e36f2157` | `skills/better-ui/` |
+| `wild-type/` | https://github.com/arla6ka/design.how | main | `419fa5af1721eebfab9e0062a630de36ffd0b342` | `vault/wild-type/skill/`（见下方结构说明） |
+| `warp-type/` | https://github.com/arla6ka/design.how | main | `419fa5af1721eebfab9e0062a630de36ffd0b342` | `vault/warp-type/skill/`（见下方结构说明） |
+| `word-stickers/` | https://github.com/arla6ka/design.how | main | `419fa5af1721eebfab9e0062a630de36ffd0b342` | `vault/word-stickers/skill/`（见下方结构说明） |
+| `word-carousel/` | https://github.com/arla6ka/design.how | main | `419fa5af1721eebfab9e0062a630de36ffd0b342` | `vault/word-carousel/skill/`（见下方结构说明） |
+| `improve-animations/` | https://github.com/emilkowalski/skills | main | `c8a79627b59d72d764d6ab6f2c87c09a48169833` | `skills/improve-animations/` |
+
+以上 2026-11-08 新增的 9 个 UI/视觉类 skill 来自 ui-skills.com 目录
+（https://www.ui-skills.com/ ）收录的上游仓库，均聚焦游戏/前端界面视觉：
+`frontend-design`（反 AI 味的整体视觉设计）、`userinterface-wiki`（152 条动画/CSS/
+排版/UX 审查规则）、`interaction-design`（微交互与动效）、`better-ui`（视觉细节打磨）、
+arla6ka 四个 Canvas 2D 动态字体 skill（标题界面/动态文字）、`improve-animations`
+（动效审计与改进计划，只读不改码）。原始目录结构与完整仓库快照（含 vault 顶层
+README）保存在 `.vendor-src/` 对应目录；下载当日本机 git 协议被网络阻断，改用
+codeload.github.com tarball + GitHub API 校验 commit SHA 完成，快照与上表 SHA 一致。
 
 `grill-me` 是用户入口（`disable-model-invocation: true`，只做转发），实际逻辑在 `grilling`
 skill 中，因此两个目录必须同时存在。上游 MIT LICENSE 已随目录附上。
@@ -55,6 +73,16 @@ powershell -ExecutionPolicy Bypass -File .\tools\setup-skills-env.ps1
 
 `sprite-gen` 的 `codex`、`ffmpeg`、`img2webp`、`rife-ncnn-vulkan` 是其生成/视频流程的外部可执行文件，
 按"不装全局"的约束本次未安装；仅 Python 包与 Playwright 浏览器已就位。
+
+## arla6ka 四个 skill 的结构说明
+
+上游 `arla6ka/design.how` 中每个效果位于 `vault/<效果名>/`，实际 skill 定义在其
+`skill/` 子目录（`SKILL.md`、`assets/template/`、`references/`、`scripts/`），
+`vault/<效果名>/README.md` 为效果演示说明。为满足 Trae 对
+`.trae/skills/<名称>/SKILL.md` 的扫描要求，`.trae/skills/` 下取 `skill/` 子目录
+内容作为 skill 根；完整原始结构（含顶层 README）保留在
+`.vendor-src/arla6ka-design-how/vault/`。四个 skill 的模板为 TypeScript/tsx
+参考实现，游戏内直接以原生 Canvas 2D 重写即可，无任何运行时 npm 依赖。
 
 ## 使用
 

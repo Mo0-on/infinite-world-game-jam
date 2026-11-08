@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#07141b">
   <title>天台夜班</title>
   <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/store.css">
 </head>
 <body>
   <main class="game-shell">
@@ -48,8 +49,14 @@
           <h2 id="menu-title">值班菜单</h2>
           <button class="text-button" type="button" data-close-panel="menu-container">关闭</button>
         </div>
-        <p>当前为双人开发基线，暂不读取或写入真实存档。</p>
+        <p>存档已接入官方交接协议：独立打开时同步读档，内嵌运行时先等待上一世界交接。</p>
         <button id="audio-enable" class="scene-action" type="button">启用夜班声音</button>
+        <button id="abandon-toggle" class="scene-action" type="button" aria-controls="abandon-confirm" aria-expanded="false">放弃本次夜班</button>
+        <div id="abandon-confirm" hidden>
+          <p>确定要提前结束这次夜班吗？确认后将按放弃交接真实存档，本次进度不会保留。</p>
+          <button id="abandon-confirm-button" class="scene-action" type="button">确定放弃</button>
+          <button id="abandon-cancel" class="scene-action" type="button">继续值班</button>
+        </div>
       </aside>
     </section>
 
@@ -65,7 +72,7 @@
       </ol>
     </section>
 
-    <p id="system-status" class="system-status" role="status">壳层已就绪，营业区占位模块已挂载。</p>
+    <p id="system-status" class="system-status" role="status">正在等待夜班开始……</p>
   </main>
 
   <script src="./shared/save-protocol.js"></script>
