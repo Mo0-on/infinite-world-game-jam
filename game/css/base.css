@@ -1,0 +1,150 @@
+:root {
+  color-scheme: dark;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  background: #050d12;
+  color: #dce8e3;
+  --night: #07141b;
+  --panel: #0d2028;
+  --line: #2b4750;
+  --fluorescent: #a9d8c5;
+  --amber: #e0b36b;
+  --muted: #8ba2a6;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; min-width: 320px; background: #050d12; }
+button { font: inherit; }
+button:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+.game-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 20px;
+}
+
+.topbar, .inventory-heading, .panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar { margin-bottom: 14px; }
+.shift-time { margin: 0 0 2px; color: var(--amber); font-size: 13px; }
+h1 { margin: 0; font-size: clamp(25px, 3vw, 36px); font-weight: 650; letter-spacing: .08em; }
+h2 { margin: 0; font-size: 17px; }
+.header-actions { display: flex; gap: 8px; }
+
+.text-button, .scene-switcher button, .scene-action {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #0c1d24;
+  color: #dce8e3;
+  cursor: pointer;
+}
+.text-button { padding: 8px 13px; }
+.text-button:hover, .scene-switcher button:hover, .scene-action:hover { border-color: var(--fluorescent); }
+
+.scene-switcher { display: flex; gap: 2px; }
+.scene-switcher button { padding: 9px 18px; color: var(--muted); }
+.scene-switcher button[aria-pressed="true"] {
+  border-color: var(--fluorescent);
+  background: var(--fluorescent);
+  color: #07141b;
+}
+
+.stage-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--night);
+  box-shadow: 0 18px 50px #0008;
+}
+
+#scene-container { position: absolute; inset: 0; }
+.scene {
+  display: grid;
+  grid-template-columns: minmax(260px, .85fr) 1.35fr;
+  height: 100%;
+  padding: clamp(24px, 4vw, 52px);
+  padding-bottom: 58px;
+  background: #08171e;
+}
+.scene-copy { align-self: center; z-index: 1; }
+.scene-kicker { color: var(--amber); font-size: 13px; margin: 0 0 8px; }
+.scene h2 { font-size: clamp(28px, 4vw, 44px); letter-spacing: .08em; margin-bottom: 14px; }
+.scene-description { max-width: 34ch; color: #b7c9c8; line-height: 1.8; font-size: 15px; }
+.scene-context { color: var(--muted); font-size: 13px; margin: 20px 0; }
+.scene-action { padding: 10px 16px; background: #153039; }
+.scene-feedback { min-height: 2.8em; max-width: 34ch; color: var(--fluorescent); font-size: 13px; line-height: 1.6; }
+
+.scene-art { position: relative; min-width: 0; border-left: 1px solid #28414a; }
+.store-window {
+  position: absolute; top: 6%; right: 6%; width: 60%; height: 35%;
+  border: 7px solid #173039; background: #071018; color: #64848b;
+  display: grid; place-items: center; font-size: 12px; letter-spacing: .16em;
+}
+.store-window::after { content: ""; position: absolute; inset: 48% 0 auto; height: 4px; background: #173039; }
+.shelf {
+  position: absolute; left: 3%; bottom: 17%; width: 55%; height: 37%;
+  border: 8px solid #1c363e; border-top-width: 12px;
+  display: flex; align-items: flex-end; justify-content: space-around; padding: 12px 10px;
+}
+.shelf::before { content: ""; position: absolute; left: 0; right: 0; top: 45%; height: 7px; background: #1c363e; }
+.shelf i { width: 13%; height: 40%; background: #896f4d; border-top: 4px solid var(--amber); }
+.shelf i:nth-child(2n) { height: 58%; background: #31565a; border-top-color: var(--fluorescent); }
+.counter {
+  position: absolute; right: 0; bottom: 8%; width: 43%; height: 24%;
+  background: #1b343b; border-top: 5px solid #52716f; color: #a7bcba;
+  display: grid; place-items: center; font-size: 12px;
+}
+
+.stock-door {
+  position: absolute; right: 8%; top: 4%; width: 43%; height: 72%;
+  border: 9px solid #1c353d; background: #0a151a; color: #617b80;
+  display: grid; place-items: center; font-size: 12px; letter-spacing: .12em;
+}
+.stock-door::after { content: ""; position: absolute; right: 10%; top: 50%; width: 8px; height: 8px; background: var(--amber); }
+.crate-stack { position: absolute; left: 3%; bottom: 9%; width: 50%; height: 45%; }
+.crate-stack i { position: absolute; width: 47%; height: 45%; border: 3px solid #655b44; background: #2c2d27; }
+.crate-stack i:nth-child(2) { left: 43%; bottom: 0; }
+.crate-stack i:nth-child(3) { left: 20%; bottom: 43%; }
+.cable-line { position: absolute; left: 9%; top: 13%; width: 35%; height: 20%; border-left: 3px solid #58716e; border-bottom: 3px solid #58716e; border-radius: 0 0 0 40px; }
+
+.stage-status {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: space-between; padding: 10px 18px;
+  border-top: 1px solid #28414a; background: #07141bee; color: var(--muted); font-size: 12px;
+}
+.stage-status strong { color: var(--fluorescent); font-weight: 600; }
+
+.overlay-panel {
+  position: absolute; z-index: 4; inset: 8%; padding: clamp(20px, 4vw, 38px);
+  border: 1px solid #53716f; background: #0b1c23; box-shadow: 0 20px 60px #000a;
+}
+.overlay-panel p { color: #adc1c0; line-height: 1.8; max-width: 58ch; }
+.blueprint-sketch { display: flex; align-items: center; margin: 36px 0 24px; color: var(--fluorescent); }
+.blueprint-sketch span { border: 1px solid #53716f; padding: 18px; white-space: nowrap; }
+.blueprint-sketch i { flex: 1; height: 1px; background: #53716f; }
+
+.inventory { margin-top: 14px; padding: 14px 16px; border: 1px solid var(--line); background: var(--panel); }
+.inventory-heading { margin-bottom: 10px; color: var(--muted); font-size: 12px; }
+.inventory-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
+.inventory-slots li { padding: 10px 12px; border: 1px dashed #38535a; color: #6f888d; font-size: 13px; }
+.system-status { min-height: 1.5em; margin: 10px 2px 0; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 680px) {
+  .game-shell { width: min(100% - 20px, 1120px); padding-top: 14px; }
+  .scene { grid-template-columns: 1fr 1fr; padding: 20px; padding-bottom: 52px; }
+  .scene-description { font-size: 13px; line-height: 1.6; }
+  .scene-context { margin: 10px 0; }
+  .scene-feedback { display: none; }
+  .blueprint-sketch { margin: 20px 0; }
+  .blueprint-sketch span { padding: 9px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .text-button, .scene-switcher button, .scene-action { transition: border-color 120ms ease, background-color 120ms ease; }
+}
