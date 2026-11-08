@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07141b">
+  <title>天台夜班</title>
+  <link rel="stylesheet" href="./css/base.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <div>
+        <p class="shift-time">23:47 · 夜班记录</p>
+        <h1>天台夜班</h1>
+      </div>
+      <div class="header-actions">
+        <button id="blueprint-entry" class="text-button" type="button" aria-controls="blueprint-panel" aria-expanded="false">值班图纸</button>
+        <button id="menu-toggle" class="text-button" type="button" aria-controls="menu-container" aria-expanded="false">菜单</button>
+      </div>
+    </header>
+
+    <nav class="scene-switcher" aria-label="占位场景切换">
+      <button type="button" data-scene-target="store" aria-pressed="true">营业区占位</button>
+      <button type="button" data-scene-target="warehouse" aria-pressed="false">仓库占位</button>
+    </nav>
+
+    <section class="stage-frame" aria-label="16 比 9 游戏场景">
+      <div id="scene-container"></div>
+      <div class="stage-status" aria-live="polite">
+        <span>监控线路正常</span>
+        <span>有效交互 <strong id="interaction-count">0</strong></span>
+      </div>
+
+      <aside id="blueprint-panel" class="overlay-panel" aria-labelledby="blueprint-title" hidden>
+        <div class="panel-heading">
+          <h2 id="blueprint-title">值班图纸</h2>
+          <button class="text-button" type="button" data-close-panel="blueprint-panel">关闭</button>
+        </div>
+        <div class="blueprint-sketch" aria-label="营业区与仓库位置示意">
+          <span>营业区</span><i></i><span>仓库内门</span><i></i><span>天台出口</span>
+        </div>
+        <p>图纸入口已就绪。路线与谜题标记将在对应玩法模块中补充。</p>
+      </aside>
+
+      <aside id="menu-container" class="overlay-panel" aria-labelledby="menu-title" hidden>
+        <div class="panel-heading">
+          <h2 id="menu-title">值班菜单</h2>
+          <button class="text-button" type="button" data-close-panel="menu-container">关闭</button>
+        </div>
+        <p>当前为双人开发基线，暂不读取或写入真实存档。</p>
+        <button id="audio-enable" class="scene-action" type="button">启用夜班声音</button>
+      </aside>
+    </section>
+
+    <section id="inventory" class="inventory" aria-labelledby="inventory-title">
+      <div class="inventory-heading">
+        <h2 id="inventory-title">随身物品</h2>
+        <span>0 / 3</span>
+      </div>
+      <ol class="inventory-slots">
+        <li>空</li>
+        <li>空</li>
+        <li>空</li>
+      </ol>
+    </section>
+
+    <p id="system-status" class="system-status" role="status">壳层已就绪，营业区占位模块已挂载。</p>
+  </main>
+
+  <script src="./shared/save-protocol.js"></script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
